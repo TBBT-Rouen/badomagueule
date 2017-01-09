@@ -218,8 +218,14 @@ FOR EACH ROW
 DECLARE
 	id_max NUMBER;
 BEGIN
-	SELECT MAX(id_medecin) INTO id_max FROM medecin;
-	:NEW.id_medecin:=id_max+1;
+	IF (:NEW.id_medecin IS NULL) THEN
+		SELECT MAX(id_medecin) INTO id_max FROM medecin;
+		IF (id_max IS NULL) THEN
+			:NEW.id_medecin:=1;
+		ELSE
+			:NEW.id_medecin:=id_max+1;
+		END IF;
+	END IF;
 	IF (:NEW.specialite IS NULL) THEN
 		:NEW.specialite:='jambe';
 	END IF;
@@ -232,8 +238,14 @@ FOR EACH ROW
 DECLARE
 	id_max NUMBER;
 BEGIN
-	SELECT MAX(id_patient) INTO id_max FROM patient;
-	:NEW.id_patient:=id_max+1;
+	IF (:NEW.id_patient IS NULL) THEN
+		SELECT MAX(id_patient) INTO id_max FROM patient;
+		IF (id_max IS NULL) THEN
+			:NEW.id_patient:=1;
+		ELSE
+			:NEW.id_patient:=id_max+1;
+		END IF;
+	END IF;
 END;
 /
 
@@ -243,8 +255,14 @@ FOR EACH ROW
 DECLARE
 	id_max NUMBER;
 BEGIN
-	SELECT MAX(id_medicament) INTO id_max FROM medicament;
-	:NEW.id_medicament:=id_max+1;
+	IF (:NEW.id_medicament IS NULL) THEN
+		SELECT MAX(id_medicament) INTO id_max FROM medicament;
+		IF (id_max IS NULL) THEN
+			:NEW.id_medicament:=1;
+		ELSE
+			:NEW.id_medicament:=id_max+1;
+		END IF;
+	END IF;
 END;
 /
 
@@ -254,8 +272,14 @@ FOR EACH ROW
 DECLARE
 	id_max NUMBER;
 BEGIN
-	SELECT MAX(id_traitement) INTO id_max FROM traitement;
-	:NEW.id_traitement:=id_max+1;
+	IF (:NEW.id_traitement IS NULL) THEN
+		SELECT MAX(id_traitement) INTO id_max FROM traitement;
+		IF (id_max IS NULL) THEN
+			:NEW.id_traitement:=1;
+		ELSE
+			:NEW.id_traitement:=id_max+1;
+		END IF;
+	END IF;
 END;
 /
 
@@ -276,8 +300,14 @@ FOR EACH ROW
 DECLARE
 	id_max NUMBER;
 BEGIN
-	SELECT MAX(id_maladie) INTO id_max FROM maladie;
-	:NEW.id_maladie:=id_max+1;
+	IF (:NEW.id_maladie IS NULL) THEN
+		SELECT MAX(id_maladie) INTO id_max FROM maladie;
+		IF (id_max IS NULL) THEN
+			:NEW.id_maladie:=1;
+		ELSE
+			:NEW.id_maladie:=id_max+1;
+		END IF;
+	END IF;
 END;
 /
 
@@ -287,7 +317,13 @@ FOR EACH ROW
 DECLARE
 	id_max NUMBER;
 BEGIN
-	SELECT MAX(id_labo) INTO id_max FROM laboratoire;
-	:NEW.id_labo:=id_max+1;
+	IF (:NEW.id_labo IS NULL) THEN
+		SELECT MAX(id_labo) INTO id_max FROM laboratoire;
+		IF (id_max IS NULL) THEN
+			:NEW.id_labo:=1;
+		ELSE
+			:NEW.id_labo:=id_max+1;
+		END IF;
+	END IF;
 END;
 /
