@@ -1,293 +1,244 @@
-SHOW ERRORS;
-SET SERVEROUTPUT ON;
-/* partie de drop table */
+INSERT INTO medecin
+   VALUES (type_medecin(1, UPPER('Legens'), UPPER('Pierre'),'pied'));
+INSERT INTO medecin
+   VALUES (type_medecin(2, UPPER('Rubert'), UPPER('Rodolphe'),'ongle'));
+INSERT INTO medecin
+   VALUES (type_medecin(3, UPPER('Azizou'), UPPER('Uziza'),'cheveux'));
+INSERT INTO medecin
+   VALUES (type_medecin(4, UPPER('Noimia'), UPPER('Elicia'),'doigt'));
+INSERT INTO medecin
+   VALUES (type_medecin(5, UPPER('Lokol'), UPPER('Surio'),'nez'));
+INSERT INTO medecin
+   VALUES (type_medecin(6, UPPER('Kori'), UPPER('Pori'),'fesses'));
 
-DROP TABLE medecin cascade constraint;
-DROP TABLE patient cascade constraint;
-DROP TABLE laboratoire cascade constraint;
-DROP TABLE medicament cascade constraint;
-DROP TABLE indication cascade constraint;
-DROP TABLE indique cascade constraint;
-DROP TABLE traitement cascade constraint;
-DROP TABLE constitue cascade constraint;
-DROP TABLE maladie cascade constraint;
-DROP TABLE souffre cascade constraint;
-DROP TABLE necessite cascade constraint;
-DROP TABLE developpe cascade constraint;
-DROP TABLE travaillePour cascade constraint;
-DROP TABLE consultation cascade constraint;
-DROP TABLE substanceActive cascade constraint;
-DROP TABLE effetIndesirable cascade constraint;
-DROP TABLE possede cascade constraint;
-DROP TABLE genere cascade constraint;
-DROP TABLE reactionMedicamenteuse cascade constraint;
-DROP TYPE type_medecin;
-DROP TYPE type_patient;
-DROP TYPE type_laboratoire;
-DROP TYPE type_medicament;
-/* Création de types */
+INSERT INTO patient
+	VALUES (type_patient(1,'Edouard','Martin',12));
+INSERT INTO patient
+	VALUES (type_patient(2,'Petit','Lucas',20));
+INSERT INTO patient
+	VALUES (type_patient(3,'Robert','Alice',28));
+INSERT INTO patient
+	VALUES (type_patient(4,'Rcihard','Jade',36));
+INSERT INTO patient
+	VALUES (type_patient(5,'Durand','Jules',44));
+INSERT INTO patient
+	VALUES (type_patient(6,'Dubois','Gabin',52));
+INSERT INTO patient
+	VALUES (type_patient(7,'Moreau','Ambre',60));
 
-CREATE TYPE type_medecin as object 
-(
-	id_medecin NUMBER(2),
-	nom_medecin VARCHAR2(30),
-	prenom_medecin VARCHAR2(30),
-	specialite VARCHAR2(30)
-)
-NOT FINAL;
-/
+INSERT INTO laboratoire
+	VALUES (type_laboratoire(1,'Bayer','Rue de Bayer'));
+INSERT INTO laboratoire
+	VALUES (type_laboratoire(2,'Etoile','Rue de lEtoile'));
+INSERT INTO laboratoire
+	VALUES (type_laboratoire(3,'Soleil','Rue du Soleil'));
 
-CREATE TYPE type_patient as object 
-(
-	id_patient NUMBER(2),
-	nom_patient VARCHAR2(30),
-	prenom_patient VARCHAR2(20),
-	age_patient NUMBER(3)
-)
-NOT FINAL;
-/
+INSERT INTO medicament
+	VALUES (type_medicament(1,'Piedoide'));
+INSERT INTO medicament
+	VALUES (type_medicament(2,'Ongloide'));
+INSERT INTO medicament
+	VALUES (type_medicament(3,'Cheveuxioide'));
+INSERT INTO medicament
+	VALUES (type_medicament(4,'Doigtoide'));
+INSERT INTO medicament
+	VALUES (type_medicament(5,'Nezoide'));
+INSERT INTO medicament
+	VALUES (type_medicament(6,'Fessoide'));
 
-CREATE TYPE type_laboratoire as object 
-(
-	id_labo NUMBER(2),
-	nom_labo VARCHAR2(30),
-	adresse_labo VARCHAR2(30)
-)
-NOT FINAL;
-/
+INSERT INTO indication 
+	VALUES (1,'Pour les pieds');
+INSERT INTO indication 
+	VALUES (2,'Pour les Ongles');
+INSERT INTO indication 
+	VALUES (3,'Pour les Cheveux');
+INSERT INTO indication 
+	VALUES (4,'Pour les Doigts');
+INSERT INTO indication 
+	VALUES (5,'Pour le Nez');
+INSERT INTO indication 
+	VALUES (6,'Pourquoi');
 
-CREATE TYPE type_medicament as object 
-(
-	id_medicament NUMBER(2),
-	libelle VARCHAR2(30)
-)
-NOT FINAL;
-/
+INSERT INTO indique
+	VALUES (1,1);
+INSERT INTO indique
+	VALUES (2,2);
+INSERT INTO indique
+	VALUES (3,3);
+INSERT INTO indique
+	VALUES (4,4);
+INSERT INTO indique
+	VALUES (5,5);
+INSERT INTO indique
+	VALUES (6,6);
 
-/* Création des tables */
+INSERT INTO traitement
+	VALUES (1);
+INSERT INTO traitement
+	VALUES (2);
+INSERT INTO traitement
+	VALUES (3);
+INSERT INTO traitement
+	VALUES (4);
+INSERT INTO traitement
+	VALUES (5);
+INSERT INTO traitement
+	VALUES (6);
 
-CREATE TABLE medecin OF type_medecin
-(
-	constraint PK_tablemedecin PRIMARY KEY (id_medecin)
-);
+INSERT INTO constitue
+	VALUES (1,1);
+INSERT INTO constitue
+	VALUES (2,2);
+INSERT INTO constitue
+	VALUES (3,3);
+INSERT INTO constitue
+	VALUES (4,4);
+INSERT INTO constitue
+	VALUES (5,5);
+INSERT INTO constitue
+	VALUES (6,6);
 
-CREATE TABLE patient OF type_patient
-(
-	constraint PK_tablepatient PRIMARY KEY (id_patient)
-);
+INSERT INTO maladie
+	VALUES (1,'Piesite');
+INSERT INTO maladie
+	VALUES (2,'Onglesite');
+INSERT INTO maladie
+	VALUES (3,'Cheveusite');
+INSERT INTO maladie
+	VALUES (4,'Doisite');
+INSERT INTO maladie
+	VALUES (5,'Nezoite');
+INSERT INTO maladie
+	VALUES (6,'Pkzite');
 
-CREATE TABLE laboratoire of type_laboratoire
-(
-	constraint PK_tablelaboratoire PRIMARY KEY (id_labo)
-);
+INSERT INTO souffre
+	VALUES (1,1);
+INSERT INTO souffre
+	VALUES (2,2);
+INSERT INTO souffre
+	VALUES (3,3);
+INSERT INTO souffre
+	VALUES (4,4);
+INSERT INTO souffre
+	VALUES (5,5);
+INSERT INTO souffre
+	VALUES (6,6);
 
-CREATE TABLE medicament of type_medicament
-(
-	constraint PK_tablemedicament PRIMARY KEY (id_medicament)
-);
+INSERT INTO necessite
+	VALUES (1,1);
+INSERT INTO necessite
+	VALUES (2,2);
+INSERT INTO necessite
+	VALUES (3,3);
+INSERT INTO necessite
+	VALUES (4,4);
+INSERT INTO necessite
+	VALUES (5,5);
+INSERT INTO necessite
+	VALUES (6,6);
 
-CREATE TABLE indication 
-(
-	id_indication NUMBER(2) PRIMARY KEY,
-	type_indication VARCHAR2(50)
-);
+INSERT INTO developpe
+	VALUES (1,1);
+INSERT INTO developpe
+	VALUES (2,2);
+INSERT INTO developpe
+	VALUES (3,3);
+INSERT INTO developpe
+	VALUES (4,4);
+INSERT INTO developpe
+	VALUES (5,5);
+INSERT INTO developpe
+	VALUES (6,6);
 
-CREATE TABLE indique 	
-(
-	id_medicament NUMBER(2),
-	id_indication NUMBER(2),
-	constraint PK_indique PRIMARY KEY (id_indication,id_medicament),
-	constraint FK_indiqueindication FOREIGN KEY (id_indication) REFERENCES indication(id_indication),
-	constraint FK_indiquemedicament FOREIGN KEY (id_medicament) REFERENCES medicament(id_medicament)
-);
+INSERT INTO travaillePour
+	VALUES (1,1);
+INSERT INTO travaillePour
+	VALUES (2,2);
+INSERT INTO travaillePour
+	VALUES (3,3);
+INSERT INTO travaillePour
+	VALUES (4,1);
+INSERT INTO travaillePour
+	VALUES (5,2);
+INSERT INTO travaillePour
+	VALUES (6,2);
 
-CREATE TABLE traitement
-(
-	id_traitement NUMBER(2) NOT NULL PRIMARY KEY
-);
+INSERT INTO consultation
+	VALUES (1,NULL,1,1,1);
+INSERT INTO consultation
+	VALUES (2,NULL,2,2,2);
+INSERT INTO consultation
+	VALUES (3,NULL,3,3,3);
+INSERT INTO consultation
+	VALUES (4,NULL,4,4,4);
+INSERT INTO consultation
+	VALUES (5,NULL,5,5,5);
+INSERT INTO consultation
+	VALUES (6,NULL,6,6,6);
 
-CREATE TABLE constitue
-(
-	id_traitement NUMBER(2),
-	id_medicament NUMBER(2),
-	constraint PK_constitue PRIMARY KEY (id_traitement,id_medicament),
-	constraint FK_constituetraitement FOREIGN KEY (id_traitement) REFERENCES traitement(id_traitement),
-	constraint FK_constituemedicament FOREIGN KEY (id_medicament) REFERENCES medicament(id_medicament)
-);
+INSERT INTO substanceActive
+	VALUES (1,'pium');
+INSERT INTO substanceActive
+	VALUES (2,'onglum');
+INSERT INTO substanceActive
+	VALUES (3,'chum');
+INSERT INTO substanceActive
+	VALUES (4,'dum');
+INSERT INTO substanceActive
+	VALUES (5,'num');
+INSERT INTO substanceActive
+	VALUES (6,'pkum');
 
-CREATE TABLE maladie
-(
-	id_maladie NUMBER(2) NOT NULL PRIMARY KEY,
-	nom_maladie VARCHAR2(50)
-);
+INSERT INTO effetIndesirable
+	VALUES (1,'Pied qui pue');
+INSERT INTO effetIndesirable
+	VALUES (2,'Ongle noire');
+INSERT INTO effetIndesirable
+	VALUES (3,'Cheveux gras');
+INSERT INTO effetIndesirable
+	VALUES (4,'Main lourd');
+INSERT INTO effetIndesirable
+	VALUES (5,'Nez bouché');
+INSERT INTO effetIndesirable
+	VALUES (6,'Hémoiroide');
 
-CREATE TABLE souffre 
-(
-	id_patient NUMBER(2),
-	id_maladie NUMBER(2),
-	constraint PK_souffre PRIMARY KEY (id_patient,id_maladie),
-	constraint FK_souffrepatient FOREIGN KEY (id_patient) REFERENCES patient(id_patient),
-	constraint FK_souffremaladie FOREIGN KEY (id_maladie) REFERENCES maladie(id_maladie)
-);
+INSERT INTO possede
+	VALUES (1,1);
+INSERT INTO possede
+	VALUES (2,2);
+INSERT INTO possede
+	VALUES (3,3);
+INSERT INTO possede
+	VALUES (4,4);
+INSERT INTO possede
+	VALUES (5,5);
+INSERT INTO possede
+	VALUES (6,6);
 
-CREATE TABLE necessite 
-(
-	id_traitement NUMBER(2),
-	id_maladie NUMBER(2),
-	constraint PK_necessite PRIMARY KEY (id_traitement,id_maladie),
-	constraint FK_necessitetraitement FOREIGN KEY (id_traitement) REFERENCES traitement(id_traitement),
-	constraint FK_necessitemaladie FOREIGN KEY (id_maladie) REFERENCES maladie(id_maladie)
-);
+INSERT INTO genere
+	VALUES (1,1);
+INSERT INTO genere
+	VALUES (2,2);
+INSERT INTO genere
+	VALUES (3,3);
+INSERT INTO genere
+	VALUES (4,4);
+INSERT INTO genere
+	VALUES (5,5);
+INSERT INTO genere
+	VALUES (6,6);
 
-CREATE TABLE developpe
-(
-	id_medecin NUMBER(2),
-	id_medicament NUMBER(2),
-	constraint PK_developpe PRIMARY KEY (id_medecin,id_medicament),
-	constraint FK_developpemedecin FOREIGN KEY (id_medecin) REFERENCES medecin(id_medecin),
-	constraint FK_developpemedicament FOREIGN KEY (id_medicament) REFERENCES medicament(id_medicament)
-);
+INSERT INTO reactionMedicamenteuse
+	VALUES (1,1,2,3);
+INSERT INTO reactionMedicamenteuse
+	VALUES (2,2,3,4);
+INSERT INTO reactionMedicamenteuse
+	VALUES (3,3,4,5);
+INSERT INTO reactionMedicamenteuse
+	VALUES (4,4,5,6);
+INSERT INTO reactionMedicamenteuse
+	VALUES (5,5,6,1);
+INSERT INTO reactionMedicamenteuse
+	VALUES (6,6,1,2);
 
-CREATE TABLE travaillePour
-(
-	id_medecin NUMBER(2),
-	id_labo NUMBER(2),
-	constraint PK_travaillePour PRIMARY KEY (id_medecin,id_labo),
-	constraint FK_travaillePourmedecin FOREIGN KEY (id_medecin) REFERENCES medecin(id_medecin),
-	constraint FK_travaillePourlaboratoire FOREIGN KEY (id_labo) REFERENCES laboratoire(id_labo)
-);
 
-CREATE TABLE consultation
-(
-	id_consultation NUMBER(2) NOT NULL PRIMARY KEY,
-	date_consultation DATE,
-	id_medecin NUMBER(2),
-	id_patient NUMBER(2),
-	id_traitement NUMBER(2),
-	constraint FK_consultationmedecin FOREIGN KEY (id_medecin) REFERENCES medecin(id_medecin),
-	constraint FK_consultationpatient FOREIGN KEY (id_patient) REFERENCES patient(id_patient),
-	constraint FK_consultationtraitement FOREIGN KEY (id_traitement) REFERENCES traitement(id_traitement)
-);
-
-CREATE TABLE substanceActive
-(
-	id_substance NUMBER(2) NOT NULL PRIMARY KEY,
-	description_substance VARCHAR2(50)
-);
-
-CREATE TABLE effetIndesirable
-(
-	id_effet NUMBER(2) NOT NULL PRIMARY KEY,
-	description_effet VARCHAR2(50)
-);
-
-CREATE TABLE possede
-(
-	id_substance NUMBER(2),
-	id_medicament NUMBER(2),
-	constraint PK_possede PRIMARY KEY (id_substance,id_medicament),
-	constraint FK_possedesubstance FOREIGN KEY (id_substance) REFERENCES substanceActive(id_substance),
-	constraint FK_possedemedicament FOREIGN KEY (id_medicament) REFERENCES medicament(id_medicament)
-);
-
-CREATE TABLE genere
-(
-	id_substance NUMBER(2),
-	id_effet NUMBER(2),
-	constraint PK_genere PRIMARY KEY (id_substance,id_effet),
-	constraint FK_generesubstance FOREIGN KEY (id_substance) REFERENCES substanceActive(id_substance),
-	constraint FK_genereeffet FOREIGN KEY (id_effet) REFERENCES effetIndesirable(id_effet)
-);
-
-CREATE TABLE reactionMedicamenteuse
-(
-	id_reaction NUMBER(2) NOT NULL PRIMARY KEY,
-	id_effet NUMBER(2),
-	id_medicament1 NUMBER(2),
-	id_medicament2 NUMBER(2),
-	constraint FK_reactionMedocEffet FOREIGN KEY (id_effet) REFERENCES effetIndesirable(id_effet),
-	constraint FK_reactionMedocMedicament1 FOREIGN KEY (id_medicament1) REFERENCES medicament(id_medicament),
-	constraint FK_reactionMedocMedicament2 FOREIGN KEY (id_medicament2) REFERENCES medicament(id_medicament)
-);
-
-/* Partie de création des triggers */
-
-CREATE OR REPLACE TRIGGER nouveau_medecin
-BEFORE INSERT ON medecin
-FOR EACH ROW
-DECLARE
-	id_max NUMBER;
-BEGIN
-	SELECT MAX(id_medecin) INTO id_max FROM medecin;
-	:NEW.id_medecin:=id_max+1;
-	IF (:NEW.specialite IS NULL) THEN
-		:NEW.specialite:='jambe';
-	END IF;
-END;
-/
-
-CREATE OR REPLACE TRIGGER nouveau_patient
-BEFORE INSERT ON patient
-FOR EACH ROW
-DECLARE
-	id_max NUMBER;
-BEGIN
-	SELECT MAX(id_patient) INTO id_max FROM patient;
-	:NEW.id_patient:=id_max+1;
-END;
-/
-
-CREATE OR REPLACE TRIGGER nouveau_medicament
-BEFORE INSERT ON medicament
-FOR EACH ROW
-DECLARE
-	id_max NUMBER;
-BEGIN
-	SELECT MAX(id_medicament) INTO id_max FROM medicament;
-	:NEW.id_medicament:=id_max+1;
-END;
-/
-
-CREATE OR REPLACE TRIGGER nouveau_traitement
-BEFORE INSERT ON traitement
-FOR EACH ROW
-DECLARE
-	id_max NUMBER;
-BEGIN
-	SELECT MAX(id_traitement) INTO id_max FROM traitement;
-	:NEW.id_traitement:=id_max+1;
-END;
-/
-
-CREATE OR REPLACE TRIGGER date_consult_null
-BEFORE INSERT ON consultation
-FOR EACH ROW
-DECLARE
-BEGIN
-	IF (:NEW.date_consultation IS NULL) THEN
-		:NEW.date_consultation:= SYSDATE;
-	END IF;
-END;
-/
-
-CREATE OR REPLACE TRIGGER nouvelle_maladie
-BEFORE INSERT ON maladie
-FOR EACH ROW
-DECLARE
-	id_max NUMBER;
-BEGIN
-	SELECT MAX(id_maladie) INTO id_max FROM maladie;
-	:NEW.id_maladie:=id_max+1;
-END;
-/
-
-CREATE OR REPLACE TRIGGER nouveau_labo
-BEFORE INSERT ON laboratoire
-FOR EACH ROW
-DECLARE
-	id_max NUMBER;
-BEGIN
-	SELECT MAX(id_labo) INTO id_max FROM laboratoire;
-	:NEW.id_labo:=id_max+1;
-END;
-/
