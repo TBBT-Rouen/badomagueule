@@ -212,6 +212,12 @@ CREATE TABLE reactionMedicamenteuse
 
 /* Partie de création des triggers */
 
+/*
+Trigger qui permet d'insérer un nouveau médecin à l'id directement supérieur au plus grand déjà présent dans la base.
+Si la base est vide, l'id prend comme valeur 1.
+De plus, si l'attribut specialite n'a pas de valeur, on lui attribut par défaut la valeur 'jambe'.
+*/
+
 CREATE OR REPLACE TRIGGER nouveau_medecin
 BEFORE INSERT ON medecin
 FOR EACH ROW
@@ -232,6 +238,11 @@ BEGIN
 END;
 /
 
+/*
+Trigger qui permet d'insérer un nouveau patient à l'id directement supérieur au plus grand déjà présent dans la base.
+Si la base est vide, l'id prend comme valeur 1.
+*/
+
 CREATE OR REPLACE TRIGGER nouveau_patient
 BEFORE INSERT ON patient
 FOR EACH ROW
@@ -248,6 +259,11 @@ BEGIN
 	END IF;
 END;
 /
+
+/*
+Trigger qui permet d'insérer un nouveau médicament à l'id directement supérieur au plus grand déjà présent dans la base.
+Si la base est vide, l'id prend comme valeur 1.
+*/
 
 CREATE OR REPLACE TRIGGER nouveau_medicament
 BEFORE INSERT ON medicament
@@ -266,6 +282,11 @@ BEGIN
 END;
 /
 
+/*
+Trigger qui permet d'insérer un nouveau traitement à l'id directement supérieur au plus grand déjà présent dans la base.
+Si la base est vide, l'id prend comme valeur 1.
+*/
+
 CREATE OR REPLACE TRIGGER nouveau_traitement
 BEFORE INSERT ON traitement
 FOR EACH ROW
@@ -283,6 +304,11 @@ BEGIN
 END;
 /
 
+/*
+Trigger qui permet de renseigner la date du jour en cas d'insertion d'une ligne dans la table consultation 
+avec le non-renseignement de l'attribut date_consultation
+*/
+
 CREATE OR REPLACE TRIGGER date_consult_null
 BEFORE INSERT ON consultation
 FOR EACH ROW
@@ -293,6 +319,11 @@ BEGIN
 	END IF;
 END;
 /
+
+/*
+Trigger qui permet d'insérer une nouvelle maladie à l'id directement supérieur au plus grand déjà présent dans la base.
+Si la base est vide, l'id prend comme valeur 1.
+*/
 
 CREATE OR REPLACE TRIGGER nouvelle_maladie
 BEFORE INSERT ON maladie
@@ -310,6 +341,11 @@ BEGIN
 	END IF;
 END;
 /
+
+/*
+Trigger qui permet d'insérer un nouveau laboratoire à l'id directement supérieur au plus grand déjà présent dans la base.
+Si la base est vide, l'id prend comme valeur 1.
+*/
 
 CREATE OR REPLACE TRIGGER nouveau_labo
 BEFORE INSERT ON laboratoire
