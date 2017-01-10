@@ -1,6 +1,6 @@
 SHOW ERRORS;
 SET SERVEROUTPUT ON;
-/* partie de drop table */
+/* partie de drop */
 
 DROP TABLE medecin cascade constraint;
 DROP TABLE patient cascade constraint;
@@ -25,7 +25,10 @@ DROP TYPE type_medecin;
 DROP TYPE type_patient;
 DROP TYPE type_laboratoire;
 DROP TYPE type_medicament;
+
 /* Création de types */
+
+/* Création d'un type médecin */
 
 CREATE TYPE type_medecin as object 
 (
@@ -37,6 +40,8 @@ CREATE TYPE type_medecin as object
 NOT FINAL;
 /
 
+/* Création d'un type patient */
+
 CREATE TYPE type_patient as object 
 (
 	id_patient NUMBER(2),
@@ -47,6 +52,8 @@ CREATE TYPE type_patient as object
 NOT FINAL;
 /
 
+/* Création d'un type laboratoire */
+
 CREATE TYPE type_laboratoire as object 
 (
 	id_labo NUMBER(2),
@@ -55,6 +62,8 @@ CREATE TYPE type_laboratoire as object
 )
 NOT FINAL;
 /
+
+/* Création d'un type médicament */
 
 CREATE TYPE type_medicament as object 
 (
@@ -66,31 +75,47 @@ NOT FINAL;
 
 /* Création des tables */
 
+/* Création de la table médecin avec le type type_médecin avec comme clé primaire id_medecin */
+
 CREATE TABLE medecin OF type_medecin
 (
 	constraint PK_tablemedecin PRIMARY KEY (id_medecin)
 );
+
+/* Création de la table patient avec le type type_patient avec comme clé primaire id_patient */
 
 CREATE TABLE patient OF type_patient
 (
 	constraint PK_tablepatient PRIMARY KEY (id_patient)
 );
 
+/* Création de la table laboratoire avec le type type_laboratoire avec comme clé primaire id_labo */
+
 CREATE TABLE laboratoire of type_laboratoire
 (
 	constraint PK_tablelaboratoire PRIMARY KEY (id_labo)
 );
+
+/* Création de la table médicament avec le type type_medicament avec comme clé primaire id_medicament */
 
 CREATE TABLE medicament of type_medicament
 (
 	constraint PK_tablemedicament PRIMARY KEY (id_medicament)
 );
 
+/* Création de la table indication avec comme clé primaire id_indication */
+
 CREATE TABLE indication 
 (
 	id_indication NUMBER(2) PRIMARY KEY,
 	type_indication VARCHAR2(50)
 );
+
+/* 
+Création de la table indique avec : 
+- clé primaire : le couple (id_indication,id_medicament)
+- clé étrangère : id_indication de la table indication et id_medicament de la table medicament
+*/
 
 CREATE TABLE indique 	
 (
@@ -101,10 +126,18 @@ CREATE TABLE indique
 	constraint FK_indiquemedicament FOREIGN KEY (id_medicament) REFERENCES medicament(id_medicament)
 );
 
+/* Création de la table traitement avec comme clé primaire id_traitement */
+
 CREATE TABLE traitement
 (
 	id_traitement NUMBER(2) NOT NULL PRIMARY KEY
 );
+
+/* 
+Création de la table constitue avec : 
+- clé primaire : le couple (id_traitement,id_medicament)
+- clé étrangère : id_traitement de la table traitement et id_medicament de la table medicament
+*/
 
 CREATE TABLE constitue
 (
@@ -115,11 +148,19 @@ CREATE TABLE constitue
 	constraint FK_constituemedicament FOREIGN KEY (id_medicament) REFERENCES medicament(id_medicament)
 );
 
+/* Création de la table maladie avec comme clé primaire id_maladie */
+
 CREATE TABLE maladie
 (
 	id_maladie NUMBER(2) NOT NULL PRIMARY KEY,
 	nom_maladie VARCHAR2(50)
 );
+
+/* 
+Création de la table souffre avec : 
+- clé primaire : le couple (id_patient,id_maladie)
+- clé étrangère : id_patient de la table patient et id_maladie de la table maladie
+*/
 
 CREATE TABLE souffre 
 (
@@ -130,6 +171,12 @@ CREATE TABLE souffre
 	constraint FK_souffremaladie FOREIGN KEY (id_maladie) REFERENCES maladie(id_maladie)
 );
 
+/* 
+Création de la table necessite avec : 
+- clé primaire : le couple (id_traitement,id_maladie)
+- clé étrangère : id_traitement de la table traitement et id_maladie de la table maladie
+*/
+
 CREATE TABLE necessite 
 (
 	id_traitement NUMBER(2),
@@ -138,6 +185,12 @@ CREATE TABLE necessite
 	constraint FK_necessitetraitement FOREIGN KEY (id_traitement) REFERENCES traitement(id_traitement),
 	constraint FK_necessitemaladie FOREIGN KEY (id_maladie) REFERENCES maladie(id_maladie)
 );
+
+/* 
+Création de la table developpe avec : 
+- clé primaire : le couple (id_medecin,id_medicament)
+- clé étrangère : id_medecin de la table medecin et id_medicament de la table medicament
+*/
 
 CREATE TABLE developpe
 (
@@ -148,6 +201,12 @@ CREATE TABLE developpe
 	constraint FK_developpemedicament FOREIGN KEY (id_medicament) REFERENCES medicament(id_medicament)
 );
 
+/* 
+Création de la table travaillePour avec : 
+- clé primaire : le couple (id_medecin,id_labo)
+- clé étrangère : id_medecin de la table medecin et id_labo de la table laboratoire
+*/
+
 CREATE TABLE travaillePour
 (
 	id_medecin NUMBER(2),
@@ -156,6 +215,12 @@ CREATE TABLE travaillePour
 	constraint FK_travaillePourmedecin FOREIGN KEY (id_medecin) REFERENCES medecin(id_medecin),
 	constraint FK_travaillePourlaboratoire FOREIGN KEY (id_labo) REFERENCES laboratoire(id_labo)
 );
+
+/* 
+Création de la table indique avec : 
+- clé primaire : id_consultation
+- clé étrangère : id_medecin de la table medecin, id_patient de la table patient et id_traitement de la table traitement
+*/
 
 CREATE TABLE consultation
 (
@@ -169,17 +234,27 @@ CREATE TABLE consultation
 	constraint FK_consultationtraitement FOREIGN KEY (id_traitement) REFERENCES traitement(id_traitement)
 );
 
+/* Création de la table substanceActive avec comme clé primaire id_substance */
+
 CREATE TABLE substanceActive
 (
 	id_substance NUMBER(2) NOT NULL PRIMARY KEY,
 	description_substance VARCHAR2(50)
 );
 
+/* Création de la table effetIndesirable avec comme clé primaire id_effet */
+
 CREATE TABLE effetIndesirable
 (
 	id_effet NUMBER(2) NOT NULL PRIMARY KEY,
 	description_effet VARCHAR2(50)
 );
+
+/* 
+Création de la table possede avec : 
+- clé primaire : le couple (id_substance,id_medicament)
+- clé étrangère : id_substance de la table substanceActive, id_medicament de la table medicament
+*/
 
 CREATE TABLE possede
 (
@@ -190,6 +265,12 @@ CREATE TABLE possede
 	constraint FK_possedemedicament FOREIGN KEY (id_medicament) REFERENCES medicament(id_medicament)
 );
 
+/* 
+Création de la table genere avec : 
+- clé primaire : le couple (id_substance,id_effet)
+- clé étrangère : id_substance de la table substanceActive, id_effet de la table effetIndesirable
+*/
+
 CREATE TABLE genere
 (
 	id_substance NUMBER(2),
@@ -198,6 +279,12 @@ CREATE TABLE genere
 	constraint FK_generesubstance FOREIGN KEY (id_substance) REFERENCES substanceActive(id_substance),
 	constraint FK_genereeffet FOREIGN KEY (id_effet) REFERENCES effetIndesirable(id_effet)
 );
+
+/* 
+Création de la table reactionMedicamenteuse avec : 
+- clé primaire : id_reaction
+- clé étrangère : id_effet de la table effetIndesirable, id_medicament1 de la table medicament et id_medicament2 de la table medicament
+*/
 
 CREATE TABLE reactionMedicamenteuse
 (
